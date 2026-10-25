@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - MSA Portfolio{% endblock %}
+
+{% block content %}
+<section class="admin-login">
+    <div class="admin-login__box">
+        <p class="section-label">MSA Racing</p>
+        <h1 class="section-title">Admin Login</h1>
+
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class_="form-input") }}
+                {% for error in form.username.errors %}
+                <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class_="form-input") }}
+                {% for error in form.password.errors %}
+                <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {{ form.submit(class_="btn btn--primary", style="width: 100%;") }}
+        </form>
+    </div>
+</section>
+{% endblock %}

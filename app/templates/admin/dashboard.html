@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+    {% include "components/admin_nav.html" %}
+
+    <h1 class="section-title">Selamat datang, {{ current_user.username }}</h1>
+
+    <div class="admin-stats">
+        <div class="admin-stat-card">
+            <span class="admin-stat-card__value">{{ stats.total_projects }}</span>
+            <span class="admin-stat-card__label">Total Proyek</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="admin-stat-card__value">{{ stats.featured_projects }}</span>
+            <span class="admin-stat-card__label">Proyek Unggulan</span>
+        </div>
+        <div class="admin-stat-card admin-stat-card--highlight">
+            <span class="admin-stat-card__value">{{ stats.unread_messages }}</span>
+            <span class="admin-stat-card__label">Pesan Belum Dibaca</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="admin-stat-card__value">{{ stats.total_messages }}</span>
+            <span class="admin-stat-card__label">Total Pesan Masuk</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

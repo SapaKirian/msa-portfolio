@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Pesan dari {{ message.name }} - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+    {% include "components/admin_nav.html" %}
+
+    <div class="admin-page-header">
+        <h1 class="section-title">Pesan dari {{ message.name }}</h1>
+        <a href="{{ url_for('admin.messages') }}" class="btn btn--outline">&larr; Kembali</a>
+    </div>
+
+    <div class="message-detail">
+        <div class="message-detail__meta">
+            <div><span>Nama</span><strong>{{ message.name }}</strong></div>
+            <div><span>Email</span><strong>{{ message.email }}</strong></div>
+            <div><span>Subjek</span><strong>{{ message.subject }}</strong></div>
+            <div><span>Tanggal</span><strong>{{ message.created_at.strftime("%d %B %Y, %H:%M") }}</strong></div>
+        </div>
+
+        <div class="message-detail__body">
+            <p>{{ message.message }}</p>
+        </div>
+
+        <a href="mailto:{{ message.email }}?subject=Re: {{ message.subject }}" class="btn btn--primary">Balas Lewat Email</a>
+    </div>
+</section>
+{% endblock %}

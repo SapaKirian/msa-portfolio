@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <a href="{{ url_for('main.home') }}" class="navbar__logo">MSA</a>
+
+  <ul class="navbar__menu" id="navbarMenu">
+    <li><a href="{{ url_for('main.home') }}">Home</a></li>
+    <li><a href="{{ url_for('main.about') }}">About</a></li>
+    <li><a href="{{ url_for('main.skills') }}">Skills</a></li>
+    <li><a href="{{ url_for('projects.project_list') }}">Projects</a></li>
+    <li><a href="{{ url_for('main.journey') }}">Journey</a></li>
+    <li><a href="{{ url_for('contact.contact')}}">Contact</a></li>
+  </ul>
+
+  <a href="#" class="navbar__cv">Download CV</a>
+
+  <button
+    class="navbar__toggle"
+    id="navbarToggle"
+    aria-label="Toggle navigation"
+    aria-expanded="false"
+    aria-controls="navbarMenu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>

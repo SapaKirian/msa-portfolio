@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %}Kelola Pesan - Admin{% endblock %} {%
+block content %}
+<section class="admin-dashboard">
+  {% include "components/admin_nav.html" %}
+
+  <h1 class="section-title">Pesan Masuk</h1>
+
+  <div class="admin-table">
+    <div
+      class="admin-table__row admin-table__row--messages admin-table__row--head"
+    >
+      <span>Status</span>
+      <span>Nama</span>
+      <span>Subjek</span>
+      <span>Tanggal</span>
+      <span>Aksi</span>
+    </div>
+
+    {% for message in messages %}
+    <div
+      class="admin-table__row admin-table__row--messages{% if not message.is_read %} admin-table__row--unread{% endif %}"
+    >
+      <span>
+        <span class="admin-table__label">Status</span>
+        {% if message.is_read %}
+        <span class="badge badge--muted">Sudah Dibaca</span>
+        {% else %}
+        <span class="badge badge--highlight">Belum Dibaca</span>
+        {% endif %}
+      </span>
+      <span>
+        <span class="admin-table__label">Nama</span>
+        {{ message.name }}
+      </span>
+      <span>
+        <span class="admin-table__label">Subjek</span>
+        {{ message.subject }}
+      </span>
+      <span>
+        <span class="admin-table__label">Tanggal</span>
+        {{ message.created_at.strftime("%d %b %Y, %H:%M") }}
+      </span>
+      <span>
+        <a
+          href="{{ url_for('admin.message_detail', message_id=message.id) }}"
+          class="btn btn--outline btn--small"
+          >Lihat</a
+        >
+      </span>
+    </div>
+    {% else %}
+    <p class="admin-table__empty">Belum ada pesan masuk.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

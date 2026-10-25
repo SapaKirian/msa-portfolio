@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %}Kelola Proyek - Admin{% endblock %}
+{% block content %}
+<section class="admin-dashboard">
+  {% include "components/admin_nav.html" %}
+
+  <div class="admin-page-header">
+    <h1 class="section-title">Kelola Proyek</h1>
+    <a href="{{ url_for('admin.new_project') }}" class="btn btn--primary"
+      >+ Tambah Proyek</a
+    >
+  </div>
+
+  <div class="admin-table">
+    <div class="admin-table__row admin-table__row--head">
+      <span>Thumbnail</span>
+      <span>Judul</span>
+      <span>Kategori</span>
+      <span>Status</span>
+      <span>Unggulan</span>
+      <span>Aksi</span>
+    </div>
+
+    {% for project in projects %}
+    <div class="admin-table__row">
+      <span>
+        <span class="admin-table__label">Thumbnail</span>
+        <img
+          src="{{ url_for('static', filename='images/projects/' ~ project.thumbnail) }}"
+          alt="Thumbnail {{ project.title }}"
+          class="admin-table__thumb"
+          loading="lazy"
+          decoding="async"
+        />
+      </span>
+      <span>
+        <span class="admin-table__label">Judul</span>
+        {{ project.title }}
+      </span>
+      <span>
+        <span class="admin-table__label">Kategori</span>
+        {{ project.category }}
+      </span>
+      <span>
+        <span class="admin-table__label">Status</span>
+        {{ project.status }}
+      </span>
+      <span>
+        <span class="admin-table__label">Unggulan</span>
+        {{ "Ya" if project.featured else "Tidak" }}
+      </span>
+      <span class="admin-table__actions">
+        <a
+          href="{{ url_for('admin.edit_project', project_id=project.id) }}"
+          class="btn btn--outline btn--small"
+          >Edit</a
+        >
+        <form
+          method="POST"
+          action="{{ url_for('admin.delete_project', project_id=project.id) }}"
+          class="admin-delete-form"
+          data-confirm='Yakin mau hapus proyek "{{ project.title }}"? Tindakan ini tidak bisa dibatalkan.'
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="btn btn--danger btn--small">
+            Hapus
+          </button>
+        </form>
+      </span>
+    </div>
+    {% else %}
+    <p class="admin-table__empty">Belum ada proyek.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

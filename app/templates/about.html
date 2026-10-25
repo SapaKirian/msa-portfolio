@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}About - MSA Portfolio{% endblock %}
+
+{% block content %}
+<section class="about">
+    <div class="about__photo">
+        <img src="{{ url_for('static', filename='images/profile/profile.jpeg') }}" alt="Foto Muhammad Syava Argiean">
+    </div>
+
+    <div class="about__story">
+        <p class="section-label">About Me</p>
+        <h1 class="section-title">Mengenal Lebih Dekat</h1>
+
+        <p>
+            Perjalanan saya di dunia teknologi dimulai di SMKN 1 Sumedang, jurusan
+            Rekayasa Perangkat Lunak. Di sanalah saya pertama kali belajar membangun
+            aplikasi dari nol dan mulai menyukai proses di baliknya — bukan cuma
+            tampilannya, tapi bagaimana sebuah sistem bekerja.
+        </p>
+
+        <p>
+            Ketertarikan itu yang membawa saya melanjutkan studi Informatika di
+            Universitas Siliwangi. Di sini saya semakin fokus mendalami backend
+            development, database, dan API — bagian-bagian yang menurut saya jadi
+            "mesin" sesungguhnya di balik sebuah aplikasi.
+        </p>
+
+        <p>
+            Saya percaya teknologi paling bermakna ketika benar-benar menyelesaikan
+            masalah nyata. Itu sebabnya saya terus belajar membangun sistem yang
+            tidak cuma jalan, tapi juga bermanfaat untuk penggunanya.
+        </p>
+
+        <div class="about__stats" id="aboutStats">
+            {% for stat in stats %}
+            <div class="stat-card">
+                <span class="stat-card__number" data-target="{{ stat.value }}">0</span><span class="stat-card__suffix">{{ stat.suffix }}</span>
+                <p class="stat-card__label">{{ stat.label }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

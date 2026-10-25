@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - MSA Portfolio{% endblock %}
+
+{% block content %}
+<section class="contact">
+    <p class="section-label">Get In Touch</p>
+    <h1 class="section-title">Contact Me</h1>
+    <p class="contact__intro">
+        Punya proyek, ide kolaborasi, atau sekadar mau say hi? Silakan kirim pesan lewat form di bawah.
+    </p>
+
+    <div class="contact__layout">
+        <form method="POST" class="contact__form" id="contactForm" novalidate>
+            {{ form.hidden_tag() }}
+
+            <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                {{ form.honeypot.label }}
+                {{ form.honeypot(tabindex="-1", autocomplete="off") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name(class_="form-input") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email(class_="form-input") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.subject.label }}
+                {{ form.subject(class_="form-input") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.message.label }}
+                {{ form.message(class_="form-input form-textarea", rows="5") }}
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="contactSubmit">
+                <i class="fa-solid fa-paper-plane btn__icon"></i>
+                <span class="btn__text">Kirim Pesan</span>
+            </button>
+        </form>
+
+        <div class="contact__info">
+            <div>
+                <h3>Email</h3>
+                <p>TODO: isi emailmu di sini</p>
+            </div>
+            <div>
+                <h3>Lokasi</h3>
+                <p>TODO: isi lokasi umum, misal "Sumedang, Jawa Barat"</p>
+            </div>
+            <div>
+                <h3>Status</h3>
+                <p>TODO: isi status ketersediaan, misal "Terbuka untuk kolaborasi"</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

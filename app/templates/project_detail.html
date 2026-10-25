@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block title %}{{ project.title }} - MSA Portfolio{%
+endblock %} {% block meta_description %}{{ project.short_description }}{%
+endblock %} {% block content %}
+<section class="project-detail">
+  <div class="project-detail__header">
+    <span class="project-card__category">{{ project.category }}</span>
+    <h1 class="section-title">{{ project.title }}</h1>
+    <p class="project-detail__desc">{{ project.short_description }}</p>
+
+    <div class="project-detail__meta">
+      <div><span>Tahun</span><strong>{{ project.year or "-" }}</strong></div>
+      <div><span>Status</span><strong>{{ project.status }}</strong></div>
+      <div><span>Peran</span><strong>{{ project.role }}</strong></div>
+    </div>
+
+    <div class="project-card__tech">
+      {% for tech in project.technologies_list %}
+      <span>{{ tech }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="project-card__actions">
+      {% if project.demo_url %}
+      <a
+        href="{{ project.demo_url }}"
+        target="_blank"
+        rel="noopener"
+        class="btn btn--primary"
+        >Live Demo</a
+      >
+      {% else %}
+      <span class="btn btn--disabled">Demo Belum Tersedia</span>
+      {% endif %} {% if project.repo_url %}
+      <a
+        href="{{ project.repo_url }}"
+        target="_blank"
+        rel="noopener"
+        class="btn btn--outline"
+        >Source Code</a
+      >
+      {% else %}
+      <span class="btn btn--disabled">Source Belum Tersedia</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="project-detail__body">
+    <div class="project-detail__block">
+      <h2>Masalah</h2>
+      <p>{{ project.problem }}</p>
+    </div>
+
+    <div class="project-detail__block">
+      <h2>Solusi</h2>
+      <p>{{ project.solution }}</p>
+    </div>
+
+    <div class="project-detail__block">
+      <h2>Fitur Utama</h2>
+      <ul>
+        {% for feature in project.features_list %}
+        <li>{{ feature }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="project-detail__block">
+      <h2>Tantangan</h2>
+      <p>{{ project.challenges }}</p>
+    </div>
+
+    <div class="project-detail__block">
+      <h2>Hasil &amp; Pembelajaran</h2>
+      <p>{{ project.results }}</p>
+    </div>
+
+    {% if project.images %}
+    <div class="project-detail__block">
+      <h2>Galeri</h2>
+      <div class="project-detail__gallery">
+        {% for img in project.images %}
+        <img
+          src="{{ url_for('static', filename='images/projects/' ~ img.image) }}"
+          alt="{{ img.caption or project.title }}"
+          loading="lazy"
+          decoding="async"
+        />
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="project-detail__nav">
+    {% if prev_project %}
+    <a href="{{ url_for('projects.project_detail', slug=prev_project.slug) }}"
+      >&larr; {{ prev_project.title }}</a
+    >
+    {% else %}
+    <span></span>
+    {% endif %}
+
+    <a href="{{ url_for('projects.project_list') }}">Semua Proyek</a>
+
+    {% if next_project %}
+    <a href="{{ url_for('projects.project_detail', slug=next_project.slug) }}"
+      >{{ next_project.title }} &rarr;</a
+    >
+    {% else %}
+    <span></span>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

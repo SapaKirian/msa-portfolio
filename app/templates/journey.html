@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Journey - MSA Portfolio{% endblock %}
+
+{% block content %}
+<section class="journey">
+    <p class="section-label">My Journey</p>
+    <h1 class="section-title">Journey & Experience</h1>
+
+    <div class="timeline" id="timeline">
+        <div class="timeline__line">
+            <div class="timeline__line-fill" id="timelineFill"></div>
+        </div>
+
+        <div class="timeline__items">
+            {% for item in milestones %}
+            <div class="timeline__item">
+                <div class="timeline__dot"></div>
+                <div class="timeline__content">
+                    <span class="timeline__period">{{ item.period }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

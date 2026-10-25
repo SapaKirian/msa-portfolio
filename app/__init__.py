@@ -45,6 +45,18 @@ def create_app():
         from app import models
         db.create_all()
 
+        from app.models import Admin
+        import os
+
+        admin_username = os.environ.get("ADMIN_USERNAME")
+        admin_password = os.environ.get("ADMIN_PASSWORD")
+
+        if admin_username and admin_password and not Admin.query.filter_by(username=admin_username).first():
+            bootstrap_admin = Admin(username=admin_username)
+            bootstrap_admin.set_password(admin_password)
+            db.session.add(bootstrap_admin)
+            db.session.commit()
+
     @app.cli.command("create-admin")
     def create_admin():
         """Buat akun admin baru lewat terminal."""

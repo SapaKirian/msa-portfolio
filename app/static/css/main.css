@@ -1757,3 +1757,29 @@ a.project-card__thumb {
     transition: none;
   }
 }
+/* Pakai properti "translate" untuk efek hover, supaya tidak bentrok
+   dengan "transform" yang dipakai GSAP (stagger kartu & magnetic tombol) */
+.project-card {
+    transition: translate 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+    transform: none;
+    translate: 0 -4px;
+}
+
+.btn {
+    transition: translate 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+    transform: none;
+    translate: 0 -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .btn {
+        transition: none;
+    }
+}

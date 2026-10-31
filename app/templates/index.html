@@ -4,6 +4,7 @@
 {% block meta_description %}Muhammad Syava Argiean (MSA) — Informatics Student di Universitas Siliwangi, fokus pada backend development, API, dan database. Lihat proyek dan perjalanan belajarnya.{% endblock %}
 
 {% block content %}
+{% set ticker_items = ["Backend Developer", "API Design", "Database", "Flask", "Laravel", "Flutter", "Software Engineering"] %}
 <section class="hero">
     <div class="hero__bg" aria-hidden="true">
         <div class="hero__grid"></div>
@@ -44,5 +45,17 @@
         <span>Scroll</span>
         <i class="fa-solid fa-chevron-down"></i>
     </div>
+        <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+            {% for group in range(2) %}
+            <div class="ticker__group">
+                {% for item in ticker_items %}
+                <span class="ticker__item">{{ item }}</span>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 </section>
 {% endblock %}

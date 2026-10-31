@@ -1,56 +1,94 @@
-{% extends "base.html" %}
-
-{% block title %}Projects - MSA Portfolio{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Projects - MSA Portfolio{% endblock
+%} {% block content %}
 <section class="projects">
-    <p class="section-label">My Work</p>
-    <h1 class="section-title">Projects</h1>
+  <p class="section-label">My Work</p>
+  <h1 class="section-title">Projects</h1>
 
-    <div class="projects__filters" id="projectFilters">
-        {% for cat in categories %}
-        <button class="filter-btn{% if loop.first %} is-active{% endif %}" data-filter="{{ cat }}">{{ cat }}</button>
-        {% endfor %}
-    </div>
+  <div class="projects__filters" id="projectFilters">
+    {% for cat in categories %}
+    <button
+      class="filter-btn{% if loop.first %} is-active{% endif %}"
+      data-filter="{{ cat }}"
+    >
+      {{ cat }}
+    </button>
+    {% endfor %}
+  </div>
 
-    <div class="projects__grid" id="projectsGrid">
-        {% for project in projects %}
-        <div class="project-card" data-category="{{ project.category }}">
-            <div class="project-card__thumb">
-                <img src="{{ url_for('static', filename='images/projects/' ~ project.thumbnail) }}" alt="Thumbnail {{ project.title }}" loading="lazy" decoding="async">
-            </div>
-
-            <div class="project-card__body">
-                <span class="project-card__category">{{ project.category }}</span>
-                <h3 class="project-card__title">{{ project.title }}</h3>
-                <p class="project-card__desc">{{ project.short_description }}</p>
-
-                <div class="project-card__tech">
-                    {% for tech in project.technologies_list %}
-                    <span>{{ tech }}</span>
-                    {% endfor %}
-                </div>
-
-                <p class="project-card__status">Status: {{ project.status }}</p>
-
-                <div class="project-card__actions">
-                    <a href="{{ url_for('projects.project_detail', slug=project.slug) }}" class="btn btn--outline btn--small">View Detail</a>
-
-                    {% if project.demo_url %}
-                    <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="btn btn--primary btn--small">Live Demo</a>
-                    {% else %}
-                    <span class="btn btn--disabled btn--small">Demo Belum Tersedia</span>
-                    {% endif %}
-
-                    {% if project.repo_url %}
-                    <a href="{{ project.repo_url }}" target="_blank" rel="noopener" class="btn btn--outline btn--small">Source Code</a>
-                    {% else %}
-                    <span class="btn btn--disabled btn--small">Source Belum Tersedia</span>
-                    {% endif %}
-                </div>
-            </div>
+  <div class="projects__grid" id="projectsGrid">
+    {% for project in projects %}
+    <div class="project-card" data-category="{{ project.category }}">
+      <a
+        href="{{ url_for('projects.project_detail', slug=project.slug) }}"
+        class="project-card__thumb"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <img
+          src="{{ url_for('static', filename='images/projects/' ~ project.thumbnail) }}"
+          alt="Thumbnail {{ project.title }}"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="project-card__overlay">
+          <div class="project-card__overlay-tech">
+            {% for tech in project.technologies_list[:3] %}
+            <span>{{ tech }}</span>
+            {% endfor %}
+          </div>
+          <span class="project-card__overlay-cta"
+            >Lihat Detail <i class="fa-solid fa-arrow-right"></i
+          ></span>
         </div>
-        {% endfor %}
+      </a>
+
+      <div class="project-card__body">
+        <span class="project-card__category">{{ project.category }}</span>
+        <h3 class="project-card__title">{{ project.title }}</h3>
+        <p class="project-card__desc">{{ project.short_description }}</p>
+
+        <div class="project-card__tech">
+          {% for tech in project.technologies_list %}
+          <span>{{ tech }}</span>
+          {% endfor %}
+        </div>
+
+        <p class="project-card__status">Status: {{ project.status }}</p>
+
+        <div class="project-card__actions">
+          <a
+            href="{{ url_for('projects.project_detail', slug=project.slug) }}"
+            class="btn btn--outline btn--small"
+            >View Detail</a
+          >
+
+          {% if project.demo_url %}
+          <a
+            href="{{ project.demo_url }}"
+            target="_blank"
+            rel="noopener"
+            class="btn btn--primary btn--small"
+            >Live Demo</a
+          >
+          {% else %}
+          <span class="btn btn--disabled btn--small">Demo Belum Tersedia</span>
+          {% endif %} {% if project.repo_url %}
+          <a
+            href="{{ project.repo_url }}"
+            target="_blank"
+            rel="noopener"
+            class="btn btn--outline btn--small"
+            >Source Code</a
+          >
+          {% else %}
+          <span class="btn btn--disabled btn--small"
+            >Source Belum Tersedia</span
+          >
+          {% endif %}
+        </div>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </section>
 {% endblock %}

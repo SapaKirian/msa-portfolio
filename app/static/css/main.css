@@ -1542,3 +1542,218 @@ body {
     grid-template-columns: 1fr;
   }
 }
+html.skip-loading .loading-screen {
+  display: none;
+}
+
+html.skip-loading body.is-loading {
+  overflow: visible;
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+html.has-transition .page-transition {
+  visibility: visible;
+}
+
+.page-transition__panel {
+  position: absolute;
+  top: 0;
+  left: -25%;
+  width: 150%;
+  height: 100%;
+  transform: skewX(-15deg);
+}
+
+.page-transition__panel--red {
+  background-color: var(--color-red);
+}
+
+.page-transition__panel--black {
+  background-color: var(--color-black);
+}
+
+.page-transition__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 6vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  opacity: 0;
+}
+
+html.has-transition .page-transition__label {
+  opacity: 1;
+}
+/* ---------- Hero: ruang untuk ticker + perbaikan indikator scroll ---------- */
+.hero {
+  padding-bottom: 7rem;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 3.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* ---------- Running text ticker ---------- */
+.ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  padding: 0.7rem 0;
+  background-color: rgba(18, 18, 18, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+.ticker__group {
+  display: flex;
+  flex-shrink: 0;
+  min-width: 100vw;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ticker__item {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-gray);
+}
+
+.ticker__item::after {
+  content: "◆";
+  margin: 0 2rem;
+  font-size: 0.6em;
+  font-style: normal;
+  vertical-align: middle;
+  color: var(--color-red);
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Kartu proyek: hover zoom + overlay ---------- */
+.project-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+a.project-card__thumb {
+  display: block;
+  position: relative;
+}
+
+.project-card__thumb img {
+  transition: transform 0.5s ease;
+}
+
+.project-card__thumb:hover img {
+  transform: scale(1.08);
+}
+
+.project-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 8, 0.92) 0%,
+    rgba(8, 8, 8, 0.35) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card__thumb:hover .project-card__overlay {
+  opacity: 1;
+}
+
+.project-card__overlay-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.project-card__overlay-tech span {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  color: var(--color-white);
+}
+
+.project-card__overlay-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.project-card__overlay-cta i {
+  margin-left: 0.35rem;
+  color: var(--color-red);
+}
+
+@media (hover: none) {
+  .project-card__overlay {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+
+  .project-card,
+  .project-card__thumb img,
+  .project-card__overlay {
+    transition: none;
+  }
+}
